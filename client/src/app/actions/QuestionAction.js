@@ -24,12 +24,12 @@ const fetchQuestionDataFailure = (error) => {
 
 export function fetchQuestionData(dispatch) {
   const corsProxy = `https://cors-anywhere.herokuapp.com/`,
-      url = `https://samples.openweathermap.org/data/2.5/weather?id=2172797&appid=b6907d289e10d714a6e88b30761fae22`;
+      url = `localhost:8080//`;
   dispatch(fetchingQuestionDataAction());
   
   const mockData = true;
-  if(mockData) {
-    dispatch(fetchQuestionDataSuccess(questions));
+  if (mockData) {
+    dispatch(fetchQuestionDataSuccess(questions.map((value, i) => ({...value, id: i + 1}))));
     return;
   }
   fetch(corsProxy + url)

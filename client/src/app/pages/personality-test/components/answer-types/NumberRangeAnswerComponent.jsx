@@ -1,14 +1,44 @@
 import * as React from 'react';
 
-class NumberRangeAnswer extends React.Component {
+export class NumberRangeAnswer extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      range: {
+        from: '',
+        to: ''
+      }
+    };
+    this.fromRangeChange = this.fromRangeChange.bind(this);
+    this.toRangeChange = this.toRangeChange.bind(this);
+  }
   
-  renderOption = () => (<p><input type="number" name="age" min={this.props.range.min} max={this.props.range.max}/></p>);
+  static getDerivedStateFromProps(nextProps) {
+    return ({range: nextProps.range});
+  }
+  
+  fromRangeChange(e) {
+    const range = {...this.state.range, from: Number(e.target.value)};
+    this.setState({range});
+    this.props.onRangeChange(range);
+  }
+  
+  toRangeChange(e) {
+    const range = {...this.state.range, to: Number(e.target.value)};
+    this.setState({range});
+    this.props.onRangeChange(range);
+  }
   
   render() {
     return (
-        <form>
-          {this.renderOption()}
-        </form>
+        <div>
+          {this.props.range && (<div>
+            <p>From: <input type="range" name="points" min="18" max="140" value={this.state.range.from}
+                            onChange={this.fromRangeChange}/> {this.state.range.from}</p>
+            <p>To: <input type="range" name="points" min="18" max="140" value={this.state.range.to}
+                          onChange={this.toRangeChange}/> {this.state.range.to}</p>
+          </div>)}
+        </div>
     );
   }
 }

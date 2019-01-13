@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import FormComponent from './index';
 import {fetchQuestionData} from "../../actions/QuestionAction";
+import {postAnswerList} from "../../actions/AnswerAction";
 
 function mapStateToProps(state) {
   return {
@@ -11,7 +12,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchQuestionData: () => dispatch(fetchQuestionData)
+    fetchQuestionData: () => dispatch(fetchQuestionData),
+    submitAnswer: (answerList) => dispatch(postAnswerList(answerList))
   };
 }
 

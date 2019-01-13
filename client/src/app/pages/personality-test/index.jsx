@@ -2,6 +2,7 @@ import * as React from 'react';
 import QuestionComponent from "./components/question/QuestionComponent";
 
 import './index.scss';
+import {groupBy} from "../../util/util";
 
 class FormComponent extends React.Component {
   
@@ -10,52 +11,53 @@ class FormComponent extends React.Component {
     this.state = {
       questionList: [],
       groupedQuestionList: [],
-      isFetching: false
+      isFetching: false,
+      answerList: [],
+      questionTypes: {
+        hard_fact: 'Hard Fact',
+        lifestyle: 'Life Style',
+        introversion: 'Introversion',
+        passion: 'Passion',
+      }
     };
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
   
   static getDerivedStateFromProps(nextProps, prevState) {
-    if(nextProps.questionList !== prevState.questionList) {
-      return ({questionList: nextProps.questionList});
-    }
-    return null;
+    return (nextProps.questionList !== prevState.questionList) ? ({questionList: nextProps.questionList}) : prevState;
   }
   
   componentDidMount() {
     this.props.fetchQuestionData();
   }
   
-  createGroupedCategory() {
-    if (this.state.questionList && this.state.questionList.length > 0) {
-      let groupedCategory = [...this.state.questionList];
-      groupedCategory = groupedCategory.reduce((acc, current) => {
-        acc[current.category] = acc[current.category] || [];
-        acc[current.category].push(current);
-        return acc;
-      }, {});
-      return groupedCategory;
-    }
-    return {};
+  submitAnswer() {
+    this.props.submitAnswer(this.state.answerList);
+  }
+  
+  answerModified(ansList) {
+    let list = [...this.state.answerList];
+    ansList.forEach(ans => {
+      let index = list.map(i => i.questionId).indexOf(ans.questionId);
+      index > -1 ? list.splice(index, 1, ans) : list.push(ans);
+    });
+    this.setState({answerList: list});
   }
   
   renderQuestionCategories() {
-    let groupedQuestionList = this.createGroupedCategory();
+    const groupedQuestionList = this.state.questionList ? groupBy(this.state.questionList, 'category') : {};
     return (
         Object.entries(groupedQuestionList).map(([key, value], index) => {
           const id = `question-${index + 1}`;
           return (
-              <div key={index} className="panel panel-default">
-                <div className="panel-heading">
-                  <h4 className="panel-title form-qa">
-                    <a data-toggle="collapse" data-parent="#accordion" href={`#${id}`}>
-                      {key}
-                    </a>
-                  </h4>
-                </div>
+              <div key={index + 1} className="panel panel-default">
+                <h4 className="panel-title form-qa">
+                  <a data-toggle="collapse" data-parent="#accordion" href={`#${id}`}>
+                    <span>{this.state.questionTypes[key]}</span>
+                  </a>
+                </h4>
                 <div id={id} className="panel-collapse collapse in">
-                  <div className="panel-body">
-                    <QuestionComponent questions={value}/>
-                  </div>
+                  <QuestionComponent questions={value} getAnswers={(ansList) => this.answerModified(ansList, key)}/>
                 </div>
               </div>
           );
@@ -67,6 +69,7 @@ class FormComponent extends React.Component {
     return (
         <div className="panel-group form-wrapper" id="accordion">
           {this.renderQuestionCategories()}
+          <button className='btn btn-secondary' onClick={this.submitAnswer}>Submit</button>
         </div>
     );
   }
