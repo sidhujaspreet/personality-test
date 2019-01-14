@@ -30,7 +30,7 @@ class QuestionComponent extends React.Component {
   
   renderQuestionAnswer() {
     return this.props.questions.map((question, index) => (
-        <div key={question.id}>
+        <div key={question._id}>
           <p className='question-text'>{`${index + 1}.  ${question.question}`}</p>
           <div className="answer-wrapper">
             {this.renderAnswer(question)}

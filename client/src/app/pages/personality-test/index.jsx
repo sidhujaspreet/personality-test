@@ -27,7 +27,11 @@ class FormComponent extends React.Component {
   }
   
   submitAnswer() {
-    this.props.submitAnswer(this.state.answerList);
+    this.props.submitAnswer({
+      timestamp: Math.round((new Date()).getTime() / 1000),
+      answer_list: this.state.answerList
+    });
+    this.setState({answerList: []});
   }
   
   answerModified(ansList) {
@@ -58,7 +62,7 @@ class FormComponent extends React.Component {
   render() {
     return (
         <div className="panel-group form-wrapper" id="accordion">
-          {this.renderQuestionCategories()}
+          {this.props.isFetching ? <span>Fetching...</span> : this.renderQuestionCategories()}
           <div className='submit-wrap'>
             <button className='btn btn-secondary submit-ans-btn' onClick={this.submitAnswer}>Submit Form</button>
           </div>

@@ -1,4 +1,5 @@
 import {questions} from "../data/questions";
+import * as axios from "axios";
 
 export const FETCHING_QUESTION_DATA = 'FETCHING_QUESTION_DATA';
 export const FETCH_QUESTION_DATA_SUCCESS = 'FETCH_QUESTION_DATA_SUCCESS';
@@ -24,16 +25,15 @@ const fetchQuestionDataFailure = (error) => {
 
 export function fetchQuestionData(dispatch) {
   const corsProxy = `https://cors-anywhere.herokuapp.com/`,
-      url = `localhost:8080//`;
+      url = `http://localhost:2000/questions`;
   dispatch(fetchingQuestionDataAction());
   
-  const mockData = true;
+  const mockData = false;
   if (mockData) {
     dispatch(fetchQuestionDataSuccess(questions.map((value, i) => ({...value, id: i + 1}))));
     return;
   }
-  fetch(corsProxy + url)
-      .then(response => response.json())
-      .then(json => dispatch(fetchQuestionDataSuccess(json)))
+  axios.get(url)
+      .then(res => dispatch(fetchQuestionDataSuccess(res.data)))
       .catch(error => dispatch(fetchQuestionDataFailure(error)));
 }

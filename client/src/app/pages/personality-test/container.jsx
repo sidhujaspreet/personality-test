@@ -6,7 +6,8 @@ import {postAnswerList} from "../../actions/AnswerAction";
 function mapStateToProps(state) {
   return {
     questionList: state.question_list.list,
-    isFetching: state.question_list.isFetching
+    isFetching: state.question_list.isFetching,
+    answerPostStatus: state.answers.status
   };
 }
 

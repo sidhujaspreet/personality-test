@@ -20,7 +20,7 @@ class SingleChoiceConditionalAnswer extends React.Component {
     this.setState({selectedValue: e.target.value});
     if (e.target.value === 'not important') {
       const question = this.props.question;
-      this.props.answerOnChange({questionId: question.id, text: question.question, value: e.target.value});
+      this.props.answerOnChange({questionId: question._id, text: question.question, value: e.target.value});
     }
   };
   
@@ -45,14 +45,14 @@ class SingleChoiceConditionalAnswer extends React.Component {
     const question = this.props.question;
     this.setState({selectedAge: value});
     value = (this.state.selectedValue === 'not important') ? this.state.selectedValue : value;
-    this.props.answerOnChange({questionId: question.id, text: question.question, value});
+    this.props.answerOnChange({questionId: question._id, text: question.question, value});
   }
   
   onRangeChange(value) {
     const question = this.props.question;
     this.setState({selectedRange: value});
     value = (this.state.selectedValue === 'not important') ? this.state.selectedValue : `${value.from}-${value.to}`;
-    this.props.answerOnChange({questionId: question.id, text: question.question, value})
+    this.props.answerOnChange({questionId: question._id, text: question.question, value})
   }
   
   render() {
