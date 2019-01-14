@@ -61,7 +61,7 @@ class SingleChoiceConditionalAnswer extends React.Component {
         <form>
           {options && options.map((option) => (
               <div key={option}>
-                <p><input type="radio" name="gender" value={option} onClick={this.onRadioBtnClick}/> {option}</p>
+                <p className='radio-select'><input type="radio" name="gender" value={option} onClick={this.onRadioBtnClick}/> {option}</p>
                 {this.displayCondition(option)}
               </div>
           ))}

@@ -30,10 +30,14 @@ export class NumberRangeAnswer extends React.Component {
     return (
         <div>
           {this.props.range && (<div>
-            <p>From: <input type="range" name="points" min="18" max="140" value={this.state.range.from}
-                            onChange={this.fromRangeChange}/> {this.state.range.from}</p>
-            <p>To: <input type="range" name="points" min="18" max="140" value={this.state.range.to}
-                          onChange={this.toRangeChange}/> {this.state.range.to}</p>
+            <p className='range-input from-input'><span>From: </span><input type="range" name="points" min="18"
+                                                                            max="140" value={this.state.range.from}
+                                                                            onChange={this.fromRangeChange}/> {this.state.range.from}
+            </p>
+            <p className='range-input to-input'><span>To: </span><input type="range" name="points" min="18" max="140"
+                                                                        value={this.state.range.to}
+                                                                        onChange={this.toRangeChange}/> {this.state.range.to}
+            </p>
           </div>)}
         </div>
     );
