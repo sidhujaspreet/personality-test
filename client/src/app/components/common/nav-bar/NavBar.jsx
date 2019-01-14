@@ -5,13 +5,13 @@ import './NavBar.scss';
 const navBar = () => {
   return (
       <nav className="navbar navbar-inverse">
-        <div className="container-fluid row">
-          <div className="navbar-header col-6">
+        <div className="nav-wrap">
+          <div className="navbar-header pt">
             <Link to="/">Personality Test</Link>
           </div>
-          <ul className="nav navbar-nav col-6">
-            <li><Link to="/answer-list">Answer List</Link></li>
-          </ul>
+          <div className="navbar-header al">
+            <Link to="/answer-list">Answer List</Link>
+          </div>
         </div>
       </nav>
   );

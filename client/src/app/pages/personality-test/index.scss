@@ -1,0 +1,26 @@
+.question-type-btn {
+  width: 200px;
+  margin: 0.6rem;
+  background-color: lightseagreen;
+}
+
+
+.submit-wrap {
+  width: 100%;
+  background-color: lightblue;
+  margin: 40px auto;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  border: solid 1px seagreen;
+  
+  .submit-ans-btn {
+    width: 200px;
+    margin: 0.6rem;
+    background-color: forestgreen;
+  }
+}
+
+.question-slot {
+  padding: 0 5rem;
+}

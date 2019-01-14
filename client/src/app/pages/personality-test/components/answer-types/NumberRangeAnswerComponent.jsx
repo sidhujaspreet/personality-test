@@ -4,10 +4,7 @@ export class NumberRangeAnswer extends React.Component {
   constructor() {
     super();
     this.state = {
-      range: {
-        from: '',
-        to: ''
-      }
+      range: {from: '', to: ''}
     };
     this.fromRangeChange = this.fromRangeChange.bind(this);
     this.toRangeChange = this.toRangeChange.bind(this);

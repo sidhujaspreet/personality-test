@@ -1,7 +1,7 @@
 .navbar {
-  padding: 1.2rem;
-  background-color: antiquewhite;
-  margin-bottom: 1rem;
+  padding: 0;
+  background-color: lightblue;
+  margin-bottom: 0.6em;
   
   a {
     color: black;
@@ -9,5 +9,32 @@
   
   .col-6 {
     text-align: center;
+  }
+  .nav-wrap {
+    text-align: center;
+    padding: 0;
+    
+    .navbar-header {
+      width: 240px;
+      padding: 1rem;
+      border-right: solid 0 white;
+      border-left: solid 0 white;
+      float: left;
+      text-decoration: none;
+      color: white;
+      background-color: #bdf2f9;
+      
+      a {
+        text-decoration: none;
+      }
+    }
+    
+    .navbar-header:hover {
+      background-color: #99dce5;
+    }
+    
+    .pt {
+      margin-left: 2rem;
+    }
   }
 }

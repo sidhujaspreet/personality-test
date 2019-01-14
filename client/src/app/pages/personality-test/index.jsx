@@ -2,7 +2,7 @@ import * as React from 'react';
 import QuestionComponent from "./components/question/QuestionComponent";
 
 import './index.scss';
-import {groupBy} from "../../util/util";
+import {groupBy, updateArray} from "../../util/util";
 
 class FormComponent extends React.Component {
   
@@ -13,12 +13,7 @@ class FormComponent extends React.Component {
       groupedQuestionList: [],
       isFetching: false,
       answerList: [],
-      questionTypes: {
-        hard_fact: 'Hard Fact',
-        lifestyle: 'Life Style',
-        introversion: 'Introversion',
-        passion: 'Passion',
-      }
+      questionTypes: {hard_fact: 'Hard Fact', lifestyle: 'Life Style', introversion: 'Introversion', passion: 'Passion'}
     };
     this.submitAnswer = this.submitAnswer.bind(this);
   }
@@ -37,11 +32,7 @@ class FormComponent extends React.Component {
   
   answerModified(ansList) {
     let list = [...this.state.answerList];
-    ansList.forEach(ans => {
-      let index = list.map(i => i.questionId).indexOf(ans.questionId);
-      index > -1 ? list.splice(index, 1, ans) : list.push(ans);
-    });
-    this.setState({answerList: list});
+    this.setState({answerList: updateArray(list, ansList, 'questionId')});
   }
   
   renderQuestionCategories() {
@@ -50,12 +41,11 @@ class FormComponent extends React.Component {
         Object.entries(groupedQuestionList).map(([key, value], index) => {
           const id = `question-${index + 1}`;
           return (
-              <div key={index + 1} className="panel panel-default">
-                <h4 className="panel-title form-qa">
-                  <a data-toggle="collapse" data-parent="#accordion" href={`#${id}`}>
-                    <span>{this.state.questionTypes[key]}</span>
-                  </a>
-                </h4>
+              <div key={index + 1} className="panel panel-default question-slot">
+                <button className='btn btn-primary question-type-btn' data-toggle="collapse" data-parent="#accordion"
+                        href={`#${id}`}>
+                  <span>{this.state.questionTypes[key]}</span>
+                </button>
                 <div id={id} className="panel-collapse collapse in">
                   <QuestionComponent questions={value} getAnswers={(ansList) => this.answerModified(ansList, key)}/>
                 </div>
@@ -69,7 +59,9 @@ class FormComponent extends React.Component {
     return (
         <div className="panel-group form-wrapper" id="accordion">
           {this.renderQuestionCategories()}
-          <button className='btn btn-secondary' onClick={this.submitAnswer}>Submit</button>
+          <div className='submit-wrap'>
+            <button className='btn btn-secondary submit-ans-btn' onClick={this.submitAnswer}>Submit Form</button>
+          </div>
         </div>
     );
   }

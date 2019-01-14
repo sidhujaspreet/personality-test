@@ -1,9 +1,14 @@
 .question-wrapper {
+  padding: 0 1rem;
   
   .question-text {
     margin-top: 1rem;
     margin-bottom: 0.6rem;
     color: dimgrey;
     font-weight: 700;
+  }
+  
+  input {
+    margin-right: 1rem;
   }
 }

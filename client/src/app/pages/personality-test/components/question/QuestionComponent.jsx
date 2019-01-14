@@ -25,7 +25,6 @@ class QuestionComponent extends React.Component {
     let answerList = [...this.state.answerList];
     answerIndex > -1 ? answerList.splice(answerIndex, 1, item) : answerList.push(item);
     this.setState({answerList});
-    // console.log('====', answerList);
     this.props.getAnswers(answerList);
   };
   
